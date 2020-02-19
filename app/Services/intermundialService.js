@@ -11,6 +11,7 @@ const { getavailabilityTemplate, getBookingTemplate } = require('../Templates/fl
  */
 const getavailability = async data => {
   const body = getavailabilityTemplate(data)
+  let error
 
   const availabilityXML = await request({
     method: 'POST',
@@ -19,14 +20,25 @@ const getavailability = async data => {
     headers: {
       'content-type': 'application/xml'
     }
-  })
-  const availabilityObject = JSON.parse(parser.toJson(availabilityXML))
+  }).catch(err => error = _getError(err.message))
+
+  if (error) { throw new Error(error) }
+
+  console.log(JSON.stringify(JSON.parse(parser.toJson(availabilityXML)), null, 2))
+  let availabilityObject
+  try {
+    availabilityObject = JSON.parse(parser.toJson(availabilityXML))
     ['soap:Envelope']
     ['soap:Body']
     ['ns2:getAvailabilityV2Response']
     .availableProducts
     .varietyCombinations
+  } catch (e) {
+    error = 'Error trying to parse third party response'
+  }
 
+  if (error) { throw new Error(error) }
+  
   const availability = availabilityObject
     .varietyDistributions
     .priceInfo
