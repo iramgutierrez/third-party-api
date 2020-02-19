@@ -1,0 +1,12 @@
+{
+    "apps" : [
+      {
+        "name": "bnext-test-api",
+        "script": "index.js",
+        "merge_logs": true,
+        "log_date_format": "DD-MM-YYYY HH:mm:ss.SSS --> ",
+        "exec_mode": "cluster_mode",
+        "instances": "max"
+      }
+    ]
+  }
