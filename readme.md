@@ -19,4 +19,17 @@ In both cases, the API should be listening on `http://localhost:3001`
 
 # Documentation
 
-You can find a collection postman for all endpoints into documentation folder
+You can find a collection postman and environment file for all endpoints into documentation folder.
+
+# Test
+
+For test, it has been created a test user with the following credentials (setted in the postman collection):
+
+```
+{
+  "username": "iram.gutierrez",
+  "password": "bnext123"
+}
+```
+
+After the login responses, the access token into response has been setted into environment as access_token variable in Postman.
